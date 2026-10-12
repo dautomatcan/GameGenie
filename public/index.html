@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15131d">
+  <meta name="description" content="AI game recommendations across PC, consoles, handhelds and arcade boards.">
+  <title>Game Orbit — Find your next obsession</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top"><span class="brandmark">✦</span>GAME ORBIT</a>
+      <div class="topright"><a class="toplink" href="#how">How it works</a><button class="settings" id="settingsBtn" type="button">⚙ &nbsp;API settings</button></div>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Your next favorite is out there</div>
+          <h1>Less scrolling.<br><em>More playing.</em></h1>
+          <p class="intro">Tell us what you're in the mood for. AI finds real games for your platform, then brings the artwork, gameplay and reviews together.</p>
+          <div class="hero-chips"><span>✧ 20 platforms</span><span>✧ Retro to next-gen</span><span>✧ Real catalog matches</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit"></div><div class="orbit second"></div><div class="planet">✦</div>
+          <div class="satellite one">★ Hidden gems await</div><div class="satellite two">🎮 Find your world</div>
+          <div class="star s1">✧</div><div class="star s2">✳</div>
+        </div>
+      </section>
+      <section class="finder" id="how" aria-labelledby="finderTitle">
+        <div class="finder-head"><div><h2 id="finderTitle">Find your next game</h2><p>Two quick steps between you and something great.</p></div><span class="stepmark">01 / 02 &nbsp; DISCOVER</span></div>
+        <div class="step-title"><span class="stepno">1</span> Pick your platform</div>
+        <div class="platform-groups" id="platformGroups"></div>
+        <div class="keyword-section">
+          <div class="step-title"><span class="stepno">2</span> Describe your vibe</div>
+          <form id="searchForm">
+            <div class="keyword-row"><textarea class="keyword-box" id="keywords" aria-label="Game keywords" placeholder="e.g. cozy exploration, great soundtrack, not too hard..." required minlength="3" maxlength="300" disabled></textarea><button class="primary" id="findBtn" disabled>Find my games &nbsp; ✦</button></div>
+          </form>
+          <p class="helper" id="helper">Choose a platform to unlock your search.</p>
+          <div class="error" id="error" role="alert"></div>
+        </div>
+      </section>
+      <section class="results" id="results" aria-live="polite">
+        <div class="results-head"><div><div class="results-label">Curated for you</div><h2>Your orbit starts here</h2><p id="resultsSub">Choose a platform and describe what you love to play.</p></div><div class="loading" id="loading"><span class="spinner"></span> Discovering games...</div></div>
+        <div class="grid" id="grid"></div>
+      </section>
+    </main>
+    <footer><span>Game Orbit · Powered by Groq GPT-OSS 120B</span><span>Game data and images by <a href="https://rawg.io/" target="_blank" rel="noopener noreferrer">RAWG</a>. Video searches open YouTube.</span></footer>
+  </div>
+  <div class="dialog-backdrop" id="settingsBackdrop">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <button class="close" type="button" data-close="settingsBackdrop" aria-label="Close">×</button>
+      <div class="dialog-inner">
+        <div class="detail-kicker">One-time setup</div><h2 id="settingsTitle">Connect free APIs</h2>
+        <p>Use a free Groq key for AI recommendations and a free RAWG key for game records and artwork. Keys stay in this browser and are sent to this app's server for each request.</p>
+        <label for="groqKey">Groq API key</label><input id="groqKey" type="password" autocomplete="off" placeholder="Get a key at console.groq.com">
+        <label for="rawgKey">RAWG API key</label><input id="rawgKey" type="password" autocomplete="off" placeholder="Get a key at rawg.io/apidocs">
+        <button class="primary" id="saveKeys" type="button">Save keys in this browser</button>
+        <p class="helper"><a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Get Groq key ↗</a> &nbsp;·&nbsp; <a href="https://rawg.io/apidocs" target="_blank" rel="noopener noreferrer">Get RAWG key ↗</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="dialog-backdrop" id="detailBackdrop">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="close" type="button" data-close="detailBackdrop" aria-label="Close">×</button>
+      <div id="detailContent" class="detail-wait">Loading game details...</div>
+    </div>
+  </div>
+</body>
+</html>
