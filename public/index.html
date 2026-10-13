@@ -3,71 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#15131d">
-  <meta name="description" content="AI game recommendations across PC, consoles, handhelds and arcade boards.">
-  <title>Game Orbit — Find your next obsession</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#368be9">
+  <meta name="description" content="A colorful desktop for discovering your next favorite game across PC, mobile, consoles, handhelds and arcade boards.">
+  <title>GameGenie — Your next game is out there</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="/app.js" defer></script>
 </head>
-<body>
-  <div class="shell">
+<body class="welcome-open">
+  <div class="wallpaper-shine" aria-hidden="true"></div>
+  <div class="shell" id="appShell" inert>
     <header class="topbar">
-      <a class="brand" href="#top"><span class="brandmark">✦</span>GAME ORBIT</a>
-      <div class="topright"><a class="toplink" href="#how">How it works</a><button class="settings" id="settingsBtn" type="button">⚙ &nbsp;API settings</button></div>
+      <a class="brand" href="#top"><span class="start-icon" aria-hidden="true">✦</span><span>GameGenie<span class="brand-dot">.exe</span></span></a>
+      <div class="topright"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English">ENG</button><button type="button" data-lang="vi" aria-label="Tiếng Việt">VIE</button></div><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Turn on dark mode" title="Turn on dark mode"><span aria-hidden="true">☾</span></button><button class="toplink" id="openWelcome" type="button" data-i18n="welcomeLink">Welcome</button><a class="toplink" href="#how" data-i18n="howLink">How it works</a><span class="ready-pill"><span class="ready-light"></span><span data-i18n="ready">Ready to explore</span></span></div>
     </header>
+
     <main id="top">
-      <section class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow">Your next favorite is out there</div>
-          <h1>Less scrolling.<br><em>More playing.</em></h1>
-          <p class="intro">Tell us what you're in the mood for. AI finds real games for your platform, then brings the artwork, gameplay and reviews together.</p>
-          <div class="hero-chips"><span>✧ 20 platforms</span><span>✧ Retro to next-gen</span><span>✧ Real catalog matches</span></div>
+      <div class="workspace">
+        <section class="finder window" id="how" aria-labelledby="finderTitle">
+          <div class="titlebar"><div class="titlebar-label"><span class="titlebar-icon">🔎</span><span data-i18n="finderBar">Game finder</span></div></div>
+          <div class="finder-body">
+            <div class="finder-head"><div><div class="panel-kicker" data-i18n="finderKicker">LET'S PLAY SOMETHING GOOD</div><h2 id="finderTitle" tabindex="-1" data-i18n="finderTitle">Find your next obsession</h2><p data-i18n="finderIntro">Two little steps. A whole new world of games.</p></div><span class="stepmark" data-i18n="matcher">★ GAME MATCHER</span></div>
+            <div class="step-title"><span class="stepno">1</span><span data-i18n="choosePlatform">Choose your platform</span></div>
+            <div class="platform-groups" id="platformGroups"></div>
+            <div class="keyword-section">
+              <div class="step-title"><span class="stepno">2</span><span data-i18n="describeVibe">Describe your vibe</span></div>
+              <form id="searchForm">
+                <div class="keyword-row"><textarea class="keyword-box" id="keywords" aria-label="Game keywords" aria-describedby="helper" placeholder="e.g. cozy exploration, great soundtrack, not too hard..." required minlength="3" maxlength="300"></textarea><button class="primary" id="findBtn"><span data-i18n="findGames">Find my games</span> ✦</button></div>
+              </form>
+              <p class="helper" id="helper" data-i18n="helperStart">You can type now. Choose a platform before searching.</p>
+              <div class="error" id="error" role="alert"></div>
+            </div>
+          </div>
+          <div class="statusbar"><span class="status-dot"></span><span data-i18n="finderStatus">Powered by curiosity and a little AI magic</span><span class="status-right" data-i18n="statusReady">READY</span></div>
+        </section>
+      </div>
+
+      <section class="results window" id="results" aria-live="polite">
+        <div class="titlebar"><div class="titlebar-label"><span class="titlebar-icon">🗂️</span><span data-i18n="resultsBar">Your game discoveries</span></div></div>
+        <div class="results-body">
+          <div class="results-head"><div><div class="results-label" data-i18n="resultsLabel">YOUR PERSONAL GAME SHELF</div><h2 data-i18n="resultsTitle">Good games, incoming!</h2><p id="resultsSub" data-i18n="resultsStart">Choose a platform and describe what you love to play.</p></div><div class="results-actions"><div class="loading" id="loading"><span class="spinner"></span><span data-i18n="discovering">Discovering games...</span></div><button class="reroll-button" id="rerollBtn" type="button" disabled aria-label="Reroll games" title="Reroll games"><span aria-hidden="true">🎲</span><span data-i18n="reroll">Reroll</span></button></div></div>
+          <p class="reroll-message" id="rerollMessage" role="status" hidden></p>
+          <div class="grid" id="grid"><div class="empty-state"><div class="empty-icon" aria-hidden="true">✦</div><div><strong data-i18n="emptyTitle">Your picks will land here</strong><p data-i18n="emptyBody">Start a search above and let the adventure begin.</p></div></div></div>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="orbit"></div><div class="orbit second"></div><div class="planet">✦</div>
-          <div class="satellite one">★ Hidden gems await</div><div class="satellite two">🎮 Find your world</div>
-          <div class="star s1">✧</div><div class="star s2">✳</div>
-        </div>
-      </section>
-      <section class="finder" id="how" aria-labelledby="finderTitle">
-        <div class="finder-head"><div><h2 id="finderTitle">Find your next game</h2><p>Two quick steps between you and something great.</p></div><span class="stepmark">01 / 02 &nbsp; DISCOVER</span></div>
-        <div class="step-title"><span class="stepno">1</span> Pick your platform</div>
-        <div class="platform-groups" id="platformGroups"></div>
-        <div class="keyword-section">
-          <div class="step-title"><span class="stepno">2</span> Describe your vibe</div>
-          <form id="searchForm">
-            <div class="keyword-row"><textarea class="keyword-box" id="keywords" aria-label="Game keywords" placeholder="e.g. cozy exploration, great soundtrack, not too hard..." required minlength="3" maxlength="300" disabled></textarea><button class="primary" id="findBtn" disabled>Find my games &nbsp; ✦</button></div>
-          </form>
-          <p class="helper" id="helper">Choose a platform to unlock your search.</p>
-          <div class="error" id="error" role="alert"></div>
-        </div>
-      </section>
-      <section class="results" id="results" aria-live="polite">
-        <div class="results-head"><div><div class="results-label">Curated for you</div><h2>Your orbit starts here</h2><p id="resultsSub">Choose a platform and describe what you love to play.</p></div><div class="loading" id="loading"><span class="spinner"></span> Discovering games...</div></div>
-        <div class="grid" id="grid"></div>
+        <div class="statusbar"><span class="status-dot"></span><span data-i18n="resultsStatus">Real games, matched to your mood</span><span class="status-right">GAMEGENIE</span></div>
       </section>
     </main>
-    <footer><span>Game Orbit · Powered by Groq GPT-OSS 120B</span><span>Game data and images by <a href="https://rawg.io/" target="_blank" rel="noopener noreferrer">RAWG</a>. Video searches open YouTube.</span></footer>
+
+    <footer><span data-i18n="footerPowered">✦ GameGenie · Powered by Groq GPT-OSS 120B</span><span><span data-i18n="footerData">Game data and images by</span> <a href="https://www.igdb.com/" target="_blank" rel="noopener noreferrer">IGDB</a> <span data-i18n="footerAnd">and</span> <a href="https://rawg.io/" target="_blank" rel="noopener noreferrer">RAWG</a>. <span data-i18n="footerVideo">Video searches open YouTube.</span></span></footer>
   </div>
-  <div class="dialog-backdrop" id="settingsBackdrop">
-    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-      <button class="close" type="button" data-close="settingsBackdrop" aria-label="Close">×</button>
-      <div class="dialog-inner">
-        <div class="detail-kicker">One-time setup</div><h2 id="settingsTitle">Connect free APIs</h2>
-        <p>Use a free Groq key for AI recommendations and a free RAWG key for game records and artwork. Keys stay in this browser and are sent to this app's server for each request.</p>
-        <label for="groqKey">Groq API key</label><input id="groqKey" type="password" autocomplete="off" placeholder="Get a key at console.groq.com">
-        <label for="rawgKey">RAWG API key</label><input id="rawgKey" type="password" autocomplete="off" placeholder="Get a key at rawg.io/apidocs">
-        <button class="primary" id="saveKeys" type="button">Save keys in this browser</button>
-        <p class="helper"><a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Get Groq key ↗</a> &nbsp;·&nbsp; <a href="https://rawg.io/apidocs" target="_blank" rel="noopener noreferrer">Get RAWG key ↗</a></p>
+
+  <div class="welcome-backdrop" id="welcomeBackdrop">
+    <section class="hero window welcome-window" role="dialog" aria-modal="true" aria-labelledby="heroTitle" aria-describedby="welcomeIntro">
+      <div class="titlebar"><div class="titlebar-label"><span class="titlebar-icon">✦</span><span data-i18n="welcomeBar">Welcome to GameGenie</span></div><div class="titlebar-actions"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English">ENG</button><button type="button" data-lang="vi" aria-label="Tiếng Việt">VIE</button></div><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Turn on dark mode" title="Turn on dark mode"><span aria-hidden="true">☾</span></button></div></div>
+      <div class="hero-body">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="sparkle">✳</span><span data-i18n="welcomeKicker">YOUR NEXT FAVORITE IS OUT THERE</span></div>
+          <h1 id="heroTitle"><span data-i18n="welcomeTitle1">Ready to find</span><br><span data-i18n="welcomeTitle2">your next game?</span></h1>
+          <p class="intro" id="welcomeIntro" data-i18n="welcomeIntro">Pick a platform, tell us your vibe, and we’ll match you with real games worth playing.</p>
+          <div class="hero-chips"><span id="platformCount">🎮 &nbsp;Platforms to explore</span><span data-i18n="welcomeMood">✨ &nbsp;Made for your mood</span><span data-i18n="welcomeRetro">🕹️ &nbsp;Retro to next-gen</span></div>
+          <button class="primary enter-app" id="enterApp" type="button"><span data-i18n="enter">Enter GameGenie</span><span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hero-scene" aria-hidden="true">
+          <span class="scene-star star-one">✦</span><span class="scene-star star-two">✳</span><span class="scene-star star-three">✦</span>
+          <div class="scene-cloud cloud-one"></div><div class="scene-cloud cloud-two"></div>
+          <div class="handheld"><div class="handheld-screen"><span class="screen-sky"></span><span class="screen-hill"></span><span class="screen-sun"></span><span class="screen-spark">✦</span></div><div class="handheld-cross">✚</div><div class="handheld-buttons"><span></span><span></span></div><div class="handheld-speaker">•••</div></div>
+          <div class="scene-sticker" data-i18n="sticker">new quest unlocked!</div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
+
   <div class="dialog-backdrop" id="detailBackdrop">
-    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-      <button class="close" type="button" data-close="detailBackdrop" aria-label="Close">×</button>
+    <div class="dialog window" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <div class="titlebar"><div class="titlebar-label"><span class="titlebar-icon">🎮</span><span data-i18n="detailBar">Game details</span></div><button class="close" type="button" data-close="detailBackdrop" aria-label="Close game details">×</button></div>
       <div id="detailContent" class="detail-wait">Loading game details...</div>
     </div>
   </div>

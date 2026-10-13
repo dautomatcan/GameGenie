@@ -1,9 +1,11 @@
 {
-  "name": "sites-worker-esm-starter",
+  "name": "gamegenie",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "bash scripts/build.sh",
-    "validate": "node scripts/validate-artifact.mjs"
+    "validate": "node scripts/validate-artifact.mjs",
+    "preview": "npm run build && node scripts/preview.mjs",
+    "test": "npm run build && node scripts/validate-artifact.mjs && node scripts/smoke.mjs && node --check public/app.js"
   }
 }

@@ -1,0 +1,55 @@
+[
+  {"code":"pc","label":"PC","group":"PC and Mobile","year":null,"rawgIds":[4],"igdbId":6,"verification":"hardware"},
+  {"code":"android","label":"Android","group":"PC and Mobile","year":null,"rawgIds":[21],"igdbId":34,"verification":"hardware"},
+  {"code":"ios","label":"iOS","group":"PC and Mobile","year":null,"rawgIds":[3],"igdbId":39,"verification":"hardware"},
+  {"code":"ps5","label":"PlayStation 5","group":"PlayStation","year":null,"rawgIds":[187],"igdbId":167,"verification":"hardware"},
+  {"code":"ps4","label":"PlayStation 4","group":"PlayStation","year":null,"rawgIds":[18],"igdbId":48,"verification":"hardware"},
+  {"code":"xboxseries","label":"Xbox Series X|S","group":"Xbox","year":null,"rawgIds":[186],"igdbId":169,"verification":"hardware"},
+  {"code":"xboxone","label":"Xbox One","group":"Xbox","year":null,"rawgIds":[1],"igdbId":49,"verification":"hardware"},
+  {"code":"switch2","label":"Nintendo Switch 2","group":"Nintendo","year":null,"rawgIds":[],"igdbId":508,"verification":"unlisted"},
+  {"code":"switch","label":"Nintendo Switch","group":"Nintendo","year":null,"rawgIds":[7],"igdbId":130,"verification":"hardware"},
+
+  {"code":"ps3","label":"PlayStation 3","group":"PlayStation","year":2006,"rawgIds":[16],"igdbId":9,"verification":"hardware"},
+  {"code":"ps2","label":"PlayStation 2","group":"PlayStation","year":2000,"rawgIds":[15],"igdbId":8,"verification":"hardware"},
+  {"code":"ps1","label":"PlayStation","group":"PlayStation","year":1994,"rawgIds":[27],"igdbId":7,"verification":"hardware"},
+
+  {"code":"nes","label":"Nintendo (NES)","group":"Nintendo","year":1983,"rawgIds":[49],"igdbId":18,"verification":"hardware"},
+  {"code":"snes","label":"Super Nintendo","group":"Nintendo","year":1990,"rawgIds":[79],"igdbId":19,"verification":"hardware"},
+  {"code":"n64","label":"Nintendo 64","group":"Nintendo","year":1996,"rawgIds":[83],"igdbId":4,"verification":"hardware"},
+  {"code":"gamecube","label":"GameCube","group":"Nintendo","year":2001,"rawgIds":[105],"igdbId":21,"verification":"hardware"},
+  {"code":"wii","label":"Wii","group":"Nintendo","year":2006,"rawgIds":[11],"igdbId":5,"verification":"hardware"},
+  {"code":"wiiu","label":"Wii U","group":"Nintendo","year":2012,"rawgIds":[10],"igdbId":41,"verification":"hardware"},
+
+  {"code":"xboxog","label":"Xbox","group":"Xbox","year":2001,"rawgIds":[80],"igdbId":11,"verification":"hardware"},
+  {"code":"xbox360","label":"Xbox 360","group":"Xbox","year":2005,"rawgIds":[14],"igdbId":12,"verification":"hardware"},
+
+  {"code":"mastersystem","label":"Master System","group":"Retro","year":1985,"rawgIds":[],"igdbId":64,"verification":"unlisted"},
+  {"code":"tg16","label":"TurboGrafx-16","group":"Retro","year":1987,"rawgIds":[],"igdbId":86,"verification":"unlisted"},
+  {"code":"genesis","label":"Genesis","group":"Retro","year":1988,"rawgIds":[],"igdbId":29,"verification":"unlisted"},
+  {"code":"tgcd","label":"TurboGrafx-CD","group":"Retro","year":1988,"rawgIds":[],"igdbId":150,"verification":"unlisted"},
+  {"code":"segacd","label":"Sega CD","group":"Retro","year":1991,"rawgIds":[],"igdbId":78,"verification":"unlisted"},
+  {"code":"sega32x","label":"Sega 32X","group":"Retro","year":1994,"rawgIds":[],"igdbId":30,"verification":"unlisted"},
+  {"code":"saturn","label":"Saturn","group":"Retro","year":1994,"rawgIds":[],"igdbId":32,"verification":"unlisted"},
+  {"code":"dreamcast","label":"Dreamcast","group":"Retro","year":1998,"rawgIds":[],"igdbId":23,"verification":"unlisted"},
+
+  {"code":"atari2600","label":"Atari 2600","group":"Retro","year":1977,"rawgIds":[23],"igdbId":59,"verification":"hardware"},
+  {"code":"atari5200","label":"Atari 5200","group":"Retro","year":1982,"rawgIds":[31],"igdbId":66,"verification":"hardware"},
+  {"code":"atari7800","label":"Atari 7800","group":"Retro","year":1986,"rawgIds":[28],"igdbId":60,"verification":"hardware"},
+  {"code":"cdi","label":"CD-i","group":"Retro","year":1991,"rawgIds":[],"igdbId":117,"verification":"unlisted"},
+  {"code":"jaguar","label":"Jaguar","group":"Retro","year":1993,"rawgIds":[],"igdbId":62,"verification":"unlisted"},
+  {"code":"jaguarcd","label":"Jaguar CD","group":"Retro","year":1995,"rawgIds":[],"igdbId":410,"verification":"unlisted"},
+
+  {"code":"gb","label":"Game Boy","group":"Nintendo","year":1989,"rawgIds":[26],"igdbId":33,"verification":"hardware"},
+  {"code":"lynx","label":"Lynx","group":"Retro","year":1989,"rawgIds":[46],"igdbId":61,"verification":"hardware"},
+  {"code":"gamegear","label":"Game Gear","group":"Retro","year":1990,"rawgIds":[],"igdbId":35,"verification":"unlisted"},
+  {"code":"virtualboy","label":"Virtual Boy","group":"Nintendo","year":1995,"rawgIds":[],"igdbId":87,"verification":"unlisted"},
+  {"code":"gbc","label":"Game Boy Color","group":"Nintendo","year":1998,"rawgIds":[43],"igdbId":22,"verification":"hardware"},
+  {"code":"gba","label":"Game Boy Advance","group":"Nintendo","year":2001,"rawgIds":[24],"igdbId":24,"verification":"hardware"},
+  {"code":"nds","label":"Nintendo DS","group":"Nintendo","year":2004,"rawgIds":[9],"igdbId":20,"verification":"hardware"},
+  {"code":"psp","label":"PlayStation Portable","group":"PlayStation","year":2004,"rawgIds":[17],"igdbId":38,"verification":"hardware"},
+  {"code":"3ds","label":"Nintendo 3DS","group":"Nintendo","year":2011,"rawgIds":[8],"igdbId":37,"verification":"hardware"},
+
+  {"code":"cps3","label":"Capcom CPS-3","group":"Retro","year":null,"rawgIds":[],"igdbId":null,"verification":"unlisted"},
+  {"code":"cps2","label":"Capcom CPS-2","group":"Retro","year":null,"rawgIds":[],"igdbId":null,"verification":"unlisted"},
+  {"code":"cps1","label":"Capcom CPS-1","group":"Retro","year":null,"rawgIds":[],"igdbId":null,"verification":"unlisted"}
+]
