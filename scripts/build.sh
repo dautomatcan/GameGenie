@@ -5,7 +5,7 @@ project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 dist_root="$project_root/dist"
 
 rm -rf "$dist_root"
-mkdir -p "$dist_root/server" "$dist_root/.openai"
+mkdir -p "$dist_root/server" "$dist_root/public" "$dist_root/.openai"
 node "$project_root/scripts/bundle.mjs"
 cp "$project_root/.openai/hosting.json" "$dist_root/.openai/hosting.json"
 

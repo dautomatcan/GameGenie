@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import worker from "../dist/server/index.js";
+import recommendFunction from "../api/recommend.js";
+import detailFunction from "../api/detail.js";
 
 const platforms = JSON.parse(await readFile(new URL("../data/platforms.json", import.meta.url), "utf8"));
 const screenshotSystems = "atari2600 atari5200 nes mastersystem atari7800 tg16 genesis tgcd snes cdi segacd jaguar sega32x saturn ps1 jaguarcd n64 dreamcast ps2 gamecube xboxog xbox360 ps3 wii wiiu gb lynx gamegear virtualboy gbc gba nds psp 3ds".split(" ");
@@ -81,6 +83,14 @@ globalThis.fetch = async (url, init) => {
   throw new Error("Unexpected external call: " + address);
 };
 try {
+  const publicScript = await readFile(new URL("../dist/public/app.js", import.meta.url), "utf8");
+  assert.doesNotMatch(publicScript, /__PLATFORMS__/);
+  assert.match(publicScript, /^const platforms = \[/);
+  const vercelRequest = (path) => new Request("https://example.com" + path, {
+    method: "POST", headers: { "content-type": "application/json" }, body: "{}"
+  });
+  assert.equal((await recommendFunction.fetch(vercelRequest("/api/recommend"))).status, 400);
+  assert.equal((await detailFunction.fetch(vercelRequest("/api/detail"))).status, 400);
   const homepage = await worker.fetch(new Request("https://example.com/"), {});
   assert.equal(homepage.status, 200);
   const html = await homepage.text();

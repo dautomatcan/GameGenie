@@ -14,5 +14,7 @@ for (const [token, path] of [
   let content = await readFile(resolve(root, path), "utf8");
   if (path === "public/app.js") content = content.replace("__PLATFORMS__", JSON.stringify(platforms));
   source = source.replace(token, JSON.stringify(content));
+  const name = path === "public/index.html" ? "index.html" : path.slice("public/".length);
+  await writeFile(resolve(root, "dist/public", name), content);
 }
 await writeFile(resolve(root, "dist/server/index.js"), source);

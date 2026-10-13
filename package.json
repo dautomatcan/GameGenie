@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bash scripts/build.sh",
+    "vercel-build": "npm run build",
     "validate": "node scripts/validate-artifact.mjs",
     "preview": "npm run build && node scripts/preview.mjs",
     "test": "npm run build && node scripts/validate-artifact.mjs && node scripts/smoke.mjs && node --check public/app.js"

@@ -23,7 +23,7 @@ async function guardApi(request, env, path) {
   if (origin && origin !== new URL(request.url).origin) return fail("Cross-site requests are not allowed.", 403);
   if (request.headers.get("content-type")?.split(";")[0] !== "application/json") return fail("Send JSON requests.", 415);
   if (Number(request.headers.get("content-length") || 0) > 4096) return fail("Request is too large.", 413);
-  const actor = request.headers.get("cf-connecting-ip") || "local";
+  const actor = request.headers.get("x-vercel-forwarded-for") || request.headers.get("cf-connecting-ip") || "local";
   if (env.AI_RATE_LIMITER?.limit) {
     const { success } = await env.AI_RATE_LIMITER.limit({ key: path + ":" + actor });
     if (!success) return fail("Too many requests. Please wait a minute.", 429);

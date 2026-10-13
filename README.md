@@ -41,9 +41,13 @@ Then open http://localhost:8787. Press Ctrl+C to stop the preview server. No dep
 
 Run npm test to rebuild and check the worker and its mocked recommendation flow.
 
-## GitHub and Vercel later
+## Vercel deployment
 
-This repository contains the source for the local preview. The app's AI and catalog requests run through a server worker, so GitHub Pages alone cannot serve the recommendation API. A future Vercel deployment needs a serverless adapter for the worker and the four API credentials configured as Vercel environment variables. Keep `.env.local` on your computer; it is ignored by Git and is not needed by visitors.
+Vercel builds the static site into `dist/public` and serves the recommendation and detail endpoints through functions in `api/`. The same worker handles requests in the local preview. GitHub Pages alone cannot run these API endpoints.
+
+In the Vercel project settings, add `GROQ_API_KEY`, `RAWG_API_KEY`, `IGDB_CLIENT_ID`, and `IGDB_CLIENT_SECRET` as Production environment variables, then redeploy. The first two are required for recommendations; IGDB is optional but enables exact platform verification. Keep `.env.local` on your computer; it is ignored by Git and is not needed by visitors.
+
+The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. Before inviting public traffic, set a Vercel Firewall rate limit on `/api/recommend` and `/api/detail`, and set conservative provider quotas. Public endpoints can still consume your API allowances even though visitors cannot see the keys.
 
 ## Build
 
