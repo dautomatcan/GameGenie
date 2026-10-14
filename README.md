@@ -29,7 +29,7 @@ For a public release, create a dedicated Groq project and key for this app and s
 
 Keys and the IGDB access token are read only by the server and are never returned to the browser. The API accepts same-origin JSON requests, caps request size, and applies a small local rate limit. The local preview listens only on 127.0.0.1.
 
-Before making the app public, keep the keys in hosting secrets and configure a shared edge rate limiter such as Cloudflare's [Rate Limiting binding](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/) as AI_RATE_LIMITER. Public endpoints can still be used by people who do not visit the page, so server-side keys alone cannot prevent quota abuse.
+For the Vercel deployment, the four provider credentials are stored as hidden Production secrets. A Vercel Firewall rule limits `/api/` to 15 requests per 60 seconds per IP and returns HTTP 429 when exceeded. Public endpoints can still consume the owner's API allowances, so provider-level quotas remain useful.
 
 ## Local preview
 
@@ -45,9 +45,9 @@ Run npm test to rebuild and check the worker and its mocked recommendation flow.
 
 Vercel builds the static site into `dist/public` and serves the recommendation and detail endpoints through functions in `api/`. The same worker handles requests in the local preview. GitHub Pages alone cannot run these API endpoints.
 
-In the Vercel project settings, add `GROQ_API_KEY`, `RAWG_API_KEY`, `IGDB_CLIENT_ID`, and `IGDB_CLIENT_SECRET` as Production environment variables, then redeploy. The first two are required for recommendations; IGDB is optional but enables exact platform verification. Keep `.env.local` on your computer; it is ignored by Git and is not needed by visitors.
+In the Vercel project settings, add `GROQ_API_KEY`, `RAWG_API_KEY`, `IGDB_CLIENT_ID`, and `IGDB_CLIENT_SECRET` as Production secrets, then redeploy. The first two are required for recommendations; IGDB is optional but enables exact platform verification. Keep `.env.local` on your computer; it is ignored by Git and is not needed by visitors.
 
-The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. Before inviting public traffic, set a Vercel Firewall rate limit on `/api/recommend` and `/api/detail`, and set conservative provider quotas. Public endpoints can still consume your API allowances even though visitors cannot see the keys.
+The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. The live project's Vercel Firewall rule covers both API routes with a limit of 15 requests per 60 seconds per IP. Set conservative limits with the API providers too: distributed traffic can still consume their allowances even though visitors cannot see the keys.
 
 ## Build
 

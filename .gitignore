@@ -1,3 +1,6 @@
 dist/
 site.tar.gz
-.env.local
+.env
+.env.*
+!.env.example
+.vercel/

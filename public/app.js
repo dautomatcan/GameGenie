@@ -226,8 +226,9 @@ document.addEventListener("keydown", (event) => {
 });
 async function post(path, body) {
   const result = await fetch(path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-  const data = await result.json();
-  if (!result.ok) throw new Error(data.error || "Something went wrong.");
+  const data = await result.json().catch(() => null);
+  if (!result.ok) throw new Error(data?.error || (result.status === 429 ? "Too many requests. Please wait a minute." : "Something went wrong."));
+  if (!data || typeof data !== "object") throw new Error("Something went wrong.");
   return data;
 }
 function renderGames(data) {
