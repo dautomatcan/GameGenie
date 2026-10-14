@@ -49,6 +49,14 @@ In the Vercel project settings, add `GROQ_API_KEY`, `RAWG_API_KEY`, `IGDB_CLIENT
 
 The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. The live project's Vercel Firewall rule covers both API routes with a limit of 15 requests per 60 seconds per IP. Set conservative limits with the API providers too: distributed traffic can still consume their allowances even though visitors cannot see the keys.
 
+## Private statistics
+
+The owner dashboard is at `/stats`. It requires a randomly generated password stored in the ignored local `.stats-access` file; the password and session-signing secret are hidden Vercel Production environment variables. Do not put them in Git. The dashboard and data API send `Cache-Control: no-store`, and the login session uses a signed, HTTP-only, secure cookie.
+
+Statistics are stored in the project's free Upstash Redis database, connected to Production by Vercel. Auto-upgrade was disabled during provisioning. The dashboard shows the last 7 or 30 days of unique browser IDs, returning visits, bounce rate, and GameGenie recommendation/detail API requests. Counts start when this feature is deployed; older traffic is not backfilled. API counts cover requests that reach GameGenie's functions, not calls made directly with the provider keys or requests blocked at the firewall.
+
+A random ID in first-party browser storage supports return-visit counts. GameGenie stores only a keyed hash of that ID in the statistics database, never visitor names, keywords, or IP addresses. Do Not Track browsers are not recorded. A visit is a browser-tab session; returning means that browser began another session within a year. Bounce rate is the share of sessions without an app interaction, such as entering GameGenie or searching. Clearing browser storage, using a different browser, and blocked telemetry can affect these estimates.
+
 ## Build
 
 This is a dependency-free Sites Worker ESM project.

@@ -4,3 +4,5 @@ site.tar.gz
 .env.*
 !.env.example
 .vercel/
+.stats-access
+.agents/

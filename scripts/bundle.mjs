@@ -18,3 +18,6 @@ for (const [token, path] of [
   await writeFile(resolve(root, "dist/public", name), content);
 }
 await writeFile(resolve(root, "dist/server/index.js"), source);
+for (const name of ["telemetry.js", "stats.js", "stats.css"]) {
+  await writeFile(resolve(root, "dist/public", name), await readFile(resolve(root, "public", name)));
+}
