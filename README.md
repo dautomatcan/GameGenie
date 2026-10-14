@@ -29,7 +29,7 @@ For a public release, create a dedicated Groq project and key for this app and s
 
 Keys and the IGDB access token are read only by the server and are never returned to the browser. The API accepts same-origin JSON requests, caps request size, and applies a small local rate limit. The local preview listens only on 127.0.0.1.
 
-For the Vercel deployment, the four provider credentials are stored as hidden Production secrets. A Vercel Firewall rule limits `/api/` to 15 requests per 60 seconds per IP and returns HTTP 429 when exceeded. Public endpoints can still consume the owner's API allowances, so provider-level quotas remain useful.
+For the Vercel deployment, the four provider credentials are stored as hidden Production secrets. A Vercel Firewall rule limits `/api/` to 15 requests per 60 seconds per IP and returns HTTP 429 when exceeded. Vercel Bot Protection challenges traffic that does not look like a browser. Public endpoints can still consume the owner's API allowances, so provider-level quotas remain useful.
 
 ## Local preview
 
