@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
-import { recordEngagement, recordVisit, readDashboard } from "../stats/store.js";
+import { recordApiUsage, recordEngagement, recordVisit, readDashboard } from "../stats/store.js";
 import { authenticated } from "../stats/auth.js";
 import statsLogin from "../api/stats-login.js";
 import statsData from "../api/stats-data.js";
@@ -51,12 +51,16 @@ try {
   await recordEngagement(process.env, visitorId, sessionOne);
   await recordEngagement(process.env, visitorId, sessionOne);
   await recordVisit(process.env, visitorId, sessionTwo);
+  await recordApiUsage(process.env, "browse", true);
+  await recordApiUsage(process.env, "browse", false);
   const summary = await readDashboard(process.env, 7);
   assert.equal(summary.totals.sessions, 2);
   assert.equal(summary.totals.unique, 1);
   assert.equal(summary.totals.returning, 1);
   assert.equal(summary.totals.engaged, 1);
   assert.equal(summary.totals.bounceRate, 50);
+  assert.equal(summary.totals.browse, 2);
+  assert.equal(summary.totals.browseOk, 1);
 
   const unauthorized = new Request("https://example.com/api/stats-data");
   assert.equal((await statsData.fetch(unauthorized)).status, 401);

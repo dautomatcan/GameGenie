@@ -15,7 +15,7 @@
   <div class="shell" id="appShell" inert>
     <header class="topbar">
       <a class="brand" href="#top"><span class="start-icon" aria-hidden="true">✦</span><span>GameGenie<span class="brand-dot">.exe</span></span></a>
-      <div class="topright"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English">ENG</button><button type="button" data-lang="vi" aria-label="Tiếng Việt">VIE</button></div><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Turn on dark mode" title="Turn on dark mode"><span aria-hidden="true">☾</span></button><button class="toplink" id="openWelcome" type="button" data-i18n="welcomeLink">Welcome</button><a class="toplink" href="#how" data-i18n="howLink">How it works</a><span class="ready-pill"><span class="ready-light"></span><span data-i18n="ready">Ready to explore</span></span></div>
+      <div class="topright"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English">ENG</button><button type="button" data-lang="vi" aria-label="Tiếng Việt">VIE</button></div><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Turn on dark mode" title="Turn on dark mode"><span aria-hidden="true">☾</span></button><button class="toplink" id="openWelcome" type="button" data-i18n="welcomeLink">Welcome</button><a class="toplink" href="/browse" data-i18n="browseFreely">Browse freely</a><span class="ready-pill"><span class="ready-light"></span><span data-i18n="ready">Ready to explore</span></span></div>
     </header>
 
     <main id="top">
@@ -23,7 +23,7 @@
         <section class="finder window" id="how" aria-labelledby="finderTitle">
           <div class="titlebar"><div class="titlebar-label"><span class="titlebar-icon">🔎</span><span data-i18n="finderBar">Game finder</span></div></div>
           <div class="finder-body">
-            <div class="finder-head"><div><div class="panel-kicker" data-i18n="finderKicker">LET'S PLAY SOMETHING GOOD</div><h2 id="finderTitle" tabindex="-1" data-i18n="finderTitle">Find your next obsession</h2><p data-i18n="finderIntro">Two little steps. A whole new world of games.</p></div><span class="stepmark" data-i18n="matcher">★ GAME MATCHER</span></div>
+            <div class="finder-head"><div><div class="panel-kicker" data-i18n="finderKicker">LET'S PLAY SOMETHING GOOD</div><h2 id="finderTitle" tabindex="-1" data-i18n="finderTitle">Find your next obsession</h2><p data-i18n="finderIntro">Two little steps. A whole new world of games.</p><a class="finder-browse-link" href="/browse" data-i18n="browseFreely">Browse freely</a></div><span class="stepmark" data-i18n="matcher">★ GAME MATCHER</span></div>
             <div class="step-title"><span class="stepno">1</span><span data-i18n="choosePlatform">Choose your platform</span></div>
             <div class="platform-groups" id="platformGroups"></div>
             <div class="keyword-section">
@@ -62,7 +62,7 @@
           <h1 id="heroTitle"><span data-i18n="welcomeTitle1">Ready to find</span><br><span data-i18n="welcomeTitle2">your next game?</span></h1>
           <p class="intro" id="welcomeIntro" data-i18n="welcomeIntro">Pick a platform, tell us your vibe, and we’ll match you with real games worth playing.</p>
           <div class="hero-chips"><span id="platformCount">🎮 &nbsp;Platforms to explore</span><span data-i18n="welcomeMood">✨ &nbsp;Made for your mood</span><span data-i18n="welcomeRetro">🕹️ &nbsp;Retro to next-gen</span></div>
-          <button class="primary enter-app" id="enterApp" type="button"><span data-i18n="enter">Enter GameGenie</span><span aria-hidden="true">→</span></button>
+          <div class="hero-actions"><button class="primary enter-app" id="enterApp" type="button"><span data-i18n="enter">Enter GameGenie</span><span aria-hidden="true">→</span></button><a class="browse-entry" href="/browse"><span aria-hidden="true">🗂️</span><span data-i18n="browseFreely">Browse freely</span><span aria-hidden="true">↗</span></a></div>
         </div>
         <div class="hero-scene" aria-hidden="true">
           <span class="scene-star star-one">✦</span><span class="scene-star star-two">✳</span><span class="scene-star star-three">✦</span>

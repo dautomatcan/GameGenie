@@ -3,7 +3,7 @@ import { createHmac } from "node:crypto";
 const DAY_TTL = 100 * 24 * 60 * 60;
 const VISITOR_TTL = 365 * 24 * 60 * 60;
 const SESSION_TTL = 24 * 60 * 60;
-const FIELDS = ["sessions", "engaged", "returning", "recommend", "recommendOk", "detail", "detailOk"];
+const FIELDS = ["sessions", "engaged", "returning", "recommend", "recommendOk", "detail", "detailOk", "browse", "browseOk"];
 
 function connection(env) {
   const address = env.KV_REST_API_URL || env.UPSTASH_REDIS_REST_URL;

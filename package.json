@@ -7,6 +7,6 @@
     "vercel-build": "npm run build",
     "validate": "node scripts/validate-artifact.mjs",
     "preview": "npm run build && node scripts/preview.mjs",
-    "test": "npm run build && node scripts/validate-artifact.mjs && node scripts/smoke.mjs && node scripts/stats-test.mjs && node --check public/app.js && node --check public/stats.js && node --check public/telemetry.js"
+    "test": "npm run build && node scripts/validate-artifact.mjs && node scripts/smoke.mjs && node scripts/browse-test.mjs && node scripts/stats-test.mjs && node --check public/app.js && node --check public/browse.js && node --check public/stats.js && node --check public/telemetry.js"
   }
 }

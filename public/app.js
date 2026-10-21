@@ -7,7 +7,7 @@ const el = (id) => document.getElementById(id);
 const copy = {
   en: {
     appTitle: "GameGenie — Your next game is out there", metaDescription: "Discover your next favorite game across PC, mobile, consoles, handhelds and arcade boards.",
-    welcomeLink: "Welcome", howLink: "How it works", ready: "Ready to explore", finderBar: "Game finder",
+    welcomeLink: "Welcome", howLink: "How it works", browseFreely: "Browse freely", ready: "Ready to explore", finderBar: "Game finder",
     finderKicker: "LET'S PLAY SOMETHING GOOD", finderTitle: "Find your next obsession", finderIntro: "Two little steps. A whole new world of games.", matcher: "★ GAME MATCHER",
     choosePlatform: "Choose your platform", describeVibe: "Describe your vibe", findGames: "Find my games", helperStart: "You can type now. Choose a platform before searching.",
     finderStatus: "Powered by curiosity and a little AI magic", statusReady: "READY", resultsBar: "Your game discoveries", resultsLabel: "YOUR PERSONAL GAME SHELF",
@@ -29,7 +29,7 @@ const copy = {
   },
   vi: {
     appTitle: "GameGenie — Tìm trò chơi tiếp theo", metaDescription: "Tìm trò chơi yêu thích tiếp theo trên PC, di động, console, máy cầm tay và hệ arcade.",
-    welcomeLink: "Giới thiệu", howLink: "Cách dùng", ready: "Sẵn sàng khám phá", finderBar: "Tìm trò chơi",
+    welcomeLink: "Giới thiệu", howLink: "Cách dùng", browseFreely: "Duyệt game tự do", ready: "Sẵn sàng khám phá", finderBar: "Tìm trò chơi",
     finderKicker: "CÙNG TÌM MỘT GAME HAY", finderTitle: "Tìm trò chơi hợp gu", finderIntro: "Hai bước nhỏ, rất nhiều trò chơi để khám phá.", matcher: "★ GỢI Ý GAME",
     choosePlatform: "Chọn hệ máy", describeVibe: "Mô tả gu của bạn", findGames: "Tìm game cho tôi", helperStart: "Bạn có thể nhập trước. Hãy chọn hệ máy trước khi tìm kiếm.",
     finderStatus: "Một chút tò mò, một chút phép màu AI", statusReady: "SẴN SÀNG", resultsBar: "Game dành cho bạn", resultsLabel: "KỆ GAME CỦA RIÊNG BẠN",

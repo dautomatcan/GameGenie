@@ -3,7 +3,10 @@
   "framework": null,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
-  "rewrites": [{ "source": "/stats", "destination": "/api/stats-page" }],
+  "rewrites": [
+    { "source": "/stats", "destination": "/api/stats-page" },
+    { "source": "/browse", "destination": "/browse.html" }
+  ],
   "functions": {
     "api/*.js": { "maxDuration": 60 }
   }

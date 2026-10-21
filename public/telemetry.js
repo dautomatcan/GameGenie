@@ -31,8 +31,9 @@ if (navigator.doNotTrack !== "1" && crypto.randomUUID) {
       await send("engage");
     };
     document.addEventListener("click", (event) => {
-      if (event.target.closest("#enterApp, #findBtn, #rerollBtn, [data-lang], [data-theme-toggle], #grid button")) engage();
+      if (event.target.closest("#enterApp, #findBtn, #rerollBtn, [data-lang], [data-theme-toggle], #grid button, [data-browse-platform], #loadMore, #browseGrid button")) engage();
     });
     document.getElementById("keywords")?.addEventListener("input", engage, { once: true });
+    document.getElementById("browseSort")?.addEventListener("change", engage, { once: true });
   }
 }

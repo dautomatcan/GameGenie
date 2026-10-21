@@ -21,11 +21,12 @@ if (document.body.dataset.signedIn === "true") {
       $("returning").textContent = number(totals.returning);
       $("returnRate").textContent = totals.returnRate + "% of visits came back";
       $("bounceRate").textContent = totals.bounceRate + "%";
-      $("apiTotal").textContent = number(totals.recommend + totals.detail);
+      $("apiTotal").textContent = number(totals.recommend + totals.detail + totals.browse);
       $("recommend").textContent = number(totals.recommend);
       $("detail").textContent = number(totals.detail);
-      $("apiOk").textContent = number(totals.recommendOk + totals.detailOk);
-      $("apiErrors").textContent = number(totals.recommend + totals.detail - totals.recommendOk - totals.detailOk);
+      $("browse").textContent = number(totals.browse);
+      $("apiOk").textContent = number(totals.recommendOk + totals.detailOk + totals.browseOk);
+      $("apiErrors").textContent = number(totals.recommend + totals.detail + totals.browse - totals.recommendOk - totals.detailOk - totals.browseOk);
       const chart = $("chart");
       chart.replaceChildren();
       const highest = Math.max(1, ...data.days.map((day) => day.sessions));
@@ -49,7 +50,7 @@ if (document.body.dataset.signedIn === "true") {
       rows.replaceChildren();
       [...data.days].reverse().forEach((day) => {
         const tr = document.createElement("tr");
-        [day.date, day.sessions, day.unique, day.returning, Math.max(0, day.sessions - day.engaged), day.recommend, day.detail].forEach((value) => {
+        [day.date, day.sessions, day.unique, day.returning, Math.max(0, day.sessions - day.engaged), day.recommend, day.detail, day.browse].forEach((value) => {
           const td = document.createElement("td");
           td.textContent = typeof value === "number" ? number(value) : value;
           tr.append(td);

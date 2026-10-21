@@ -9,6 +9,9 @@ An AI game finder for PC, Android, iOS, PlayStation, Xbox, Nintendo handhelds an
 3. Groq's free-tier openai/gpt-oss-120b model proposes real titles and explains the fit in the selected language. Official game titles stay unchanged for catalog matching. The app shows up to nine verified picks and the dice button requests fresh titles without repeating earlier picks from the same search.
 4. Where configured, the server verifies exact title and platform matches against IGDB and uses its screenshots or cover art. RAWG remains a fallback for catalog matching and artwork. Matches without sourced artwork are left out of the results.
 5. Opening a game fetches its catalog details, asks the model for a focused gameplay summary in the selected language, and shows available videos, YouTube gameplay and review searches, and IGDB, RAWG, or Metacritic links.
+6. The **Browse freely** button opens `/browse`, a separate game shelf with the same 46 system choices. Browse games 18 at a time and sort by popularity, newest release, community rating, critic score, or title. Game details still show gameplay and review links when the AI service is temporarily unavailable.
+
+The catalogues do not provide comparable download totals, so **Most popular** uses RAWG library adds or IGDB rating activity. RAWG serves its listed systems and the all-systems feed; IGDB serves platforms missing from RAWG. CPS board lists are curated by board and use IGDB art and ratings, which may be from later ports. Browse responses are cached for ten minutes to reduce provider usage.
 
 The platform catalog and screenshot years are in data/platforms.json. IGDB lists 43 of the 46 platform choices separately. The three CPS arcade boards remain marked as unverified because IGDB and RAWG do not distinguish them. Artwork is fetched on demand for suggested games; the screenshot contains platform names, not a complete game list to bulk import.
 
@@ -43,17 +46,17 @@ Run npm test to rebuild and check the worker and its mocked recommendation flow.
 
 ## Vercel deployment
 
-Vercel builds the static site into `dist/public` and serves the recommendation and detail endpoints through functions in `api/`. The same worker handles requests in the local preview. GitHub Pages alone cannot run these API endpoints.
+Vercel builds the static site into `dist/public` and serves the browse, recommendation, and detail endpoints through functions in `api/`. The same worker handles requests in the local preview. GitHub Pages alone cannot run these API endpoints.
 
 In the Vercel project settings, add `GROQ_API_KEY`, `RAWG_API_KEY`, `IGDB_CLIENT_ID`, and `IGDB_CLIENT_SECRET` as Production secrets, then redeploy. The first two are required for recommendations; IGDB is optional but enables exact platform verification. Keep `.env.local` on your computer; it is ignored by Git and is not needed by visitors.
 
-The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. The live project's Vercel Firewall rule covers both API routes with a limit of 15 requests per 60 seconds per IP. Set conservative limits with the API providers too: distributed traffic can still consume their allowances even though visitors cannot see the keys.
+The in-memory request limit is a local safeguard, not a shared rate limit across Vercel functions. The live project's Vercel Firewall rule covers all API routes with a limit of 15 requests per 60 seconds per IP. Set conservative limits with the API providers too: distributed traffic can still consume their allowances even though visitors cannot see the keys.
 
 ## Private statistics
 
 The owner dashboard is at `/stats`. It requires a randomly generated password stored in the ignored local `.stats-access` file; the password and session-signing secret are hidden Vercel Production environment variables. Do not put them in Git. The dashboard and data API send `Cache-Control: no-store`, and the login session uses a signed, HTTP-only, secure cookie.
 
-Statistics are stored in the project's free Upstash Redis database, connected to Production by Vercel. Auto-upgrade was disabled during provisioning. The dashboard shows the last 7 or 30 days of unique browser IDs, returning visits, bounce rate, and GameGenie recommendation/detail API requests. Counts start when this feature is deployed; older traffic is not backfilled. API counts cover requests that reach GameGenie's functions, not calls made directly with the provider keys or requests blocked at the firewall.
+Statistics are stored in the project's free Upstash Redis database, connected to Production by Vercel. Auto-upgrade was disabled during provisioning. The dashboard shows the last 7 or 30 days of unique browser IDs, returning visits, bounce rate, and GameGenie browse/recommendation/detail API requests. Counts start when this feature is deployed; older traffic is not backfilled. API counts cover requests that reach GameGenie's functions, not calls made directly with the provider keys or requests blocked at the firewall.
 
 A random ID in first-party browser storage supports return-visit counts. GameGenie stores only a keyed hash of that ID in the statistics database, never visitor names, keywords, or IP addresses. Do Not Track browsers are not recorded. A visit is a browser-tab session; returning means that browser began another session within a year. Bounce rate is the share of sessions without an app interaction, such as entering GameGenie or searching. Clearing browser storage, using a different browser, and blocked telemetry can affect these estimates.
 
@@ -66,7 +69,7 @@ Run:
     bash scripts/build.sh
     node scripts/validate-artifact.mjs
 
-The build embeds public/index.html, public/styles.css, and public/app.js into dist/server/index.js. IGDB and RAWG attribution is included on the page.
+The build embeds the home and browse pages, their styles, and client scripts into dist/server/index.js. IGDB and RAWG attribution is included on the page.
 
 ## API selection
 
