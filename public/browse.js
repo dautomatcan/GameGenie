@@ -17,14 +17,14 @@ const copy = {
     resultsBar: "Game catalogue", browseTag: "BROWSE MODE", resultsLabel: "A WHOLE WORLD OF GAMES", resultsTitle: "Take your pick!", selectionSummary: "Showing games from all systems.",
     sortLabel: "Sort by", sortPopular: "Most popular", sortRecent: "Newest releases", sortRating: "Top rated", sortCritics: "Critic scores", sortTitle: "Title A–Z",
     popularExplainer: "Popularity reflects RAWG library adds or IGDB rating activity. Download totals are not available.",
-    recentExplainer: "Newest releases use each catalogue's release date. Future games are excluded.",
+    recentExplainer: "Newest releases use each game's catalogued debut date. A later release on your selected system may have a different date. Future games are excluded.",
     ratingExplainer: "Top rated uses community and combined scores. Some older games have too few ratings to rank.",
     criticsExplainer: "Critic scores use Metacritic or IGDB critic ratings where available.",
     titleExplainer: "Games are ordered alphabetically by title.",
     curatedExplainer: "CPS board lists are curated; artwork and ratings come from IGDB. They may represent later ports.",
     loading: "Opening the game shelf…", loadingMore: "Loading more games…", shown: "Showing {count} games for {platform}.", noGames: "No catalogued games with artwork for this view. Try another sort or system.", error: "The game catalogue is temporarily unavailable. Please try again.",
     loadMore: "Load more games ↓", resultsStatus: "Real games, real artwork", footerBrand: "✦ GameGenie · Browse at your own pace", footerData: "Game data and images by", footerAnd: "and", footerStats: "A random browser ID helps count visits.",
-    detailBar: "Game details", closeDetail: "Close game details", loadingDetail: "Loading game details…", expect: "What to expect", gameplay: "Gameplay & video", reviews: "Reviews & game page", gamePage: "Game page", gameplaySearch: "Gameplay on YouTube", reviewSearch: "Reviews on YouTube", releaseUnknown: "Release unknown", unrated: "Not rated"
+    detailBar: "Game details", closeDetail: "Close game details", loadingDetail: "Loading game details…", expect: "What to expect", gameplay: "Gameplay & video", reviews: "Reviews & game page", gamePage: "Game page", gameplaySearch: "Gameplay on YouTube", reviewSearch: "Reviews on YouTube", releaseUnknown: "Release unknown", unrated: "Not rated", debut: "Debut"
   },
   vi: {
     pageTitle: "Duyệt trò chơi — GameGenie", metaDescription: "Duyệt game theo hệ máy, ngày phát hành và điểm đánh giá trên PC, console, máy cầm tay và hệ arcade.",
@@ -33,14 +33,14 @@ const copy = {
     resultsBar: "Danh mục trò chơi", browseTag: "CHẾ ĐỘ DUYỆT", resultsLabel: "THẾ GIỚI GAME RỘNG MỞ", resultsTitle: "Chọn game nào!", selectionSummary: "Đang hiển thị game từ mọi hệ máy.",
     sortLabel: "Sắp xếp", sortPopular: "Phổ biến nhất", sortRecent: "Phát hành gần đây", sortRating: "Đánh giá cao", sortCritics: "Điểm nhà phê bình", sortTitle: "Tên A–Z",
     popularExplainer: "Độ phổ biến dựa trên lượt thêm vào thư viện RAWG hoặc lượt đánh giá IGDB. Không có số lượt tải xuống.",
-    recentExplainer: "Ngày phát hành theo dữ liệu của từng danh mục. Không hiển thị game chưa phát hành.",
+    recentExplainer: "Sắp xếp theo ngày ra mắt đầu tiên của game trong kho dữ liệu. Bản phát hành trên hệ máy đã chọn có thể ra sau. Không gồm game tương lai.",
     ratingExplainer: "Điểm đánh giá dựa trên người chơi và điểm tổng hợp. Một số game cũ có quá ít đánh giá để xếp hạng.",
     criticsExplainer: "Điểm nhà phê bình lấy từ Metacritic hoặc IGDB nếu có.",
     titleExplainer: "Game được sắp xếp theo thứ tự chữ cái.",
     curatedExplainer: "Danh sách board CPS được tuyển chọn; hình ảnh và điểm từ IGDB có thể là của bản phát hành khác.",
     loading: "Đang mở kệ game…", loadingMore: "Đang tải thêm game…", shown: "Đang hiển thị {count} game cho {platform}.", noGames: "Chưa có game kèm hình cho mục này. Hãy thử cách sắp xếp hoặc hệ máy khác.", error: "Danh mục game đang tạm thời không khả dụng. Vui lòng thử lại.",
     loadMore: "Xem thêm game ↓", resultsStatus: "Game thật, hình ảnh thật", footerBrand: "✦ GameGenie · Khám phá theo cách của bạn", footerData: "Dữ liệu và hình ảnh game từ", footerAnd: "và", footerStats: "Mã ngẫu nhiên trên trình duyệt giúp đếm lượt truy cập.",
-    detailBar: "Chi tiết trò chơi", closeDetail: "Đóng chi tiết trò chơi", loadingDetail: "Đang tải chi tiết…", expect: "Bạn sẽ trải nghiệm gì", gameplay: "Gameplay và video", reviews: "Đánh giá và trang game", gamePage: "Trang game", gameplaySearch: "Gameplay trên YouTube", reviewSearch: "Đánh giá trên YouTube", releaseUnknown: "Chưa rõ ngày phát hành", unrated: "Chưa có điểm"
+    detailBar: "Chi tiết trò chơi", closeDetail: "Đóng chi tiết trò chơi", loadingDetail: "Đang tải chi tiết…", expect: "Bạn sẽ trải nghiệm gì", gameplay: "Gameplay và video", reviews: "Đánh giá và trang game", gamePage: "Trang game", gameplaySearch: "Gameplay trên YouTube", reviewSearch: "Đánh giá trên YouTube", releaseUnknown: "Chưa rõ ngày phát hành", unrated: "Chưa có điểm", debut: "Ra mắt"
   }
 };
 const groupVi = { "PC and Mobile": "PC và di động", Xbox: "Xbox", PlayStation: "PlayStation", Nintendo: "Nintendo", Retro: "Máy cổ điển" };
@@ -167,7 +167,7 @@ function cardFor(game) {
   body.append(make("div", "browse-card-meta", genres(game.genres || []).join(" · ") || game.platformLabel));
   body.append(make("h3", "", game.title));
   const foot = make("div", "browse-card-foot");
-  foot.append(make("span", "", game.platformLabel), make("span", "", game.year && game.year !== "—" ? game.year : "✦"));
+  foot.append(make("span", "", game.platformLabel), make("span", "", game.year && game.year !== "—" ? t("debut") + " " + game.year : "✦"));
   body.append(foot);
   button.append(imageWrap, body);
   button.addEventListener("click", () => openDetail(game, button));
