@@ -29,6 +29,7 @@ const BROWSE_SORTS = {
   critics: { rawg: "-metacritic", igdb: "aggregated_rating desc" },
   title: { rawg: "name", igdb: "name asc" }
 };
+const strictNintendoPlatform = (platform) => platform.code === "switch" || platform.code === "switch2";
 const browseCache = new Map();
 const localRateWindows = new Map();
 async function guardApi(request, env, path) {
@@ -216,7 +217,7 @@ async function browse(request, env) {
   const cached = browseCache.get(cacheKey);
   if (cached?.expires > Date.now()) return browseReply(cached.data);
   if (browseCache.size > 150) browseCache.clear();
-  const result = platform && !platform.rawgIds.length
+  const result = platform && (!platform.rawgIds.length || strictNintendoPlatform(platform))
     ? platform.igdbId ? await browseIgdb(platform, sort, page, env) : await browseCps(platform, sort, page, env)
     : await browseRawg(platform, sort, page, env);
   const data = { ...result, platform: code, platformLabel: platform?.label || "All systems", sort, page };
@@ -299,6 +300,9 @@ async function recommend(body, env) {
   const excluded = new Set(excludedTitles.map(titleKey));
   const groqKey = key(env.GROQ_API_KEY), rawgKey = key(env.RAWG_API_KEY);
   if (!groqKey || !rawgKey) return fail("Recommendations are temporarily unavailable.", 503);
+  if (strictNintendoPlatform(platform) && (!key(env.IGDB_CLIENT_ID) || !key(env.IGDB_CLIENT_SECRET))) {
+    return fail("Nintendo Switch platform verification is temporarily unavailable.", 503);
+  }
   const plan = await groq([
     { role: "system", content: "Recommend real video games. Return JSON only: {\"games\":[{\"title\":\"exact released game title\",\"why\":\"one sentence matching the keywords\"}]}. Choose 18 diverse released games known to be playable on the named platform, with no repeated titles and none from the excluded titles. Use the exact title of the platform release. For hardware expansions, choose games released for that specific expansion. For Capcom CPS boards choose games that ran specifically on the named CPS revision, not home ports. Never invent titles. Keep game titles in their official spelling and do not translate them. " + (language === "vi" ? "Write every why sentence in natural Vietnamese, even if the keywords are in English." : "Write every why sentence in English, even if the keywords are in Vietnamese.") + " No markdown." },
     { role: "user", content: "Platform: " + platform.label + (platform.year ? " (introduced " + platform.year + ")" : "") + ". Desired keywords: " + keywords + ". Excluded titles: " + JSON.stringify(excludedTitles) }
@@ -316,9 +320,12 @@ async function recommend(body, env) {
   if (platform.igdbId && key(env.IGDB_CLIENT_ID) && key(env.IGDB_CLIENT_SECRET)) {
     try {
       games = await igdbSuggestions(suggestions, platform, env);
-    } catch { /* RAWG remains available when IGDB is temporarily unavailable. */ }
+    } catch (error) {
+      if (strictNintendoPlatform(platform)) throw error;
+      /* RAWG remains available when IGDB is temporarily unavailable for other platforms. */
+    }
   }
-  if (games.length < MAX_RESULTS) {
+  if (games.length < MAX_RESULTS && !strictNintendoPlatform(platform)) {
     const blocked = new Set([...excluded, ...games.map((game) => titleKey(game.title))]);
     const remaining = suggestions.filter((entry) => !blocked.has(titleKey(entry.title)));
     games.push(...await rawgSuggestions(remaining, platform, rawgKey, language, blocked));
